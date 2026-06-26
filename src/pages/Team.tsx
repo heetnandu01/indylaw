@@ -1,27 +1,29 @@
-import React from 'react'
-import { Sparkles, ExternalLink } from 'lucide-react'
+import React, { useState } from 'react'
+import { Sparkles, ExternalLink, X } from 'lucide-react'
 import AVImg from '../assets/AV.jpeg'
 import DMImg from '../assets/DM.jpeg'
 import ANImg from '../assets/AN.png'
 import AAImg from '../assets/AA.jpeg'
 
 export const Team: React.FC = () => {
+  const [selectedMember, setSelectedMember] = useState<any>(null)
+
   const founders = [
     {
-      name: 'Arjun Mehta',
+      name: 'Ankur Vazirani',
       designation: 'Founder & CEO',
-      bio: 'Former litigation associate at a Tier-1 Delhi law firm, Arjun witnessed firsthand how Indian lawyers spent hours on legal research that should take minutes. He combined his legal training with a passion for AI systems to build IndyLaw from the ground up.',
+      bio: 'Ankur combined his legal training with a passion for AI systems to build IndyLaw from the ground up, with a core mission to map Indian judicial precedents.',
       tags: ['Litigation Strategy', 'Indian Jurisprudence', 'Product Vision', 'Legal AI'],
-      linkedin: '#',
+      linkedin: 'https://www.linkedin.com/in/ankur-vazirani/',
       image: AVImg,
       color: '#0B132B'
     },
     {
-      name: 'Priya Nair',
-      designation: 'Co-Founder & CTO',
-      bio: 'Priya brings deep ML research experience from IIT Bombay and enterprise SaaS engineering from her years at a leading legal tech company. She architected IndyLaw\'s RAG pipeline and the secure multi-tenant indexing infrastructure.',
-      tags: ['RAG Systems', 'ML Infrastructure', 'LLM Grounding', 'Cloud Security'],
-      linkedin: '#',
+      name: 'Adv. Devika Madekar',
+      designation: 'Co-Founder & Head of Legal',
+      bio: 'Devika is Co-Founder & Head of Legal at IndyLaw. She brings deep expertise in legal workflows, regulatory compliance, and corporate law to steer the platform\'s legal intelligence.',
+      tags: ['Corporate Law', 'Compliance', 'Legal Operations', 'Contract Auditing'],
+      linkedin: 'https://www.linkedin.com/in/devika-madekar/',
       image: DMImg,
       color: '#AA820A'
     }
@@ -29,18 +31,25 @@ export const Team: React.FC = () => {
 
   const teamMembers = [
     {
-      name: 'AN',
+      name: 'Ankit Nandu',
       role: 'Software Engineer',
       skills: ['JavaScript', 'React', 'Node.js'],
-      linkedin: '#',
+      linkedin: 'https://www.linkedin.com/in/ankit-nandu/',
       image: ANImg
     },
     {
-      name: 'AA',
-      role: 'Finance Analyst',
-      skills: ['Financial Modeling', 'Budgeting', 'Analytics'],
+      name: 'Arpika Agarwal',
+      role: 'CFO',
+      skills: ['Finance', 'Strategy', 'Operations'],
       linkedin: '#',
       image: AAImg
+    },
+    {
+      name: 'Heet Nandu',
+      role: 'DevOps Engineer',
+      skills: ['Docker', 'Kubernetes', 'CI/CD', 'AWS'],
+      linkedin: 'https://www.linkedin.com/in/heet-nandu-32ab27221/',
+      initials: 'HN'
     }
   ]
 
@@ -79,7 +88,8 @@ export const Team: React.FC = () => {
           {founders.map((founder) => (
             <div
               key={founder.name}
-              className="bg-white border border-[#0B132B]/10 hover:border-[#D4AF37]/40 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col gap-6 group"
+              onClick={() => setSelectedMember(founder)}
+              className="bg-white border border-[#0B132B]/10 hover:border-[#D4AF37]/40 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col gap-6 group cursor-pointer"
             >
               {/* Profile Top */}
               <div className="flex items-start gap-5">
@@ -106,6 +116,9 @@ export const Team: React.FC = () => {
                   </p>
                   <a
                     href={founder.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
                     className="inline-flex items-center gap-1.5 text-[10px] font-bold text-[#0B132B]/50 hover:text-[#D4AF37] mt-1.5 transition-colors"
                     aria-label={`${founder.name} LinkedIn`}
                   >
@@ -151,7 +164,8 @@ export const Team: React.FC = () => {
             {teamMembers.map((member) => (
               <div
                 key={member.name}
-                className="bg-[#FAF9F6] border border-[#0B132B]/5 hover:border-[#D4AF37]/40 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col gap-4"
+                onClick={() => setSelectedMember(member)}
+                className="bg-[#FAF9F6] border border-[#0B132B]/5 hover:border-[#D4AF37]/40 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col gap-4 cursor-pointer"
               >
                 <div className="flex items-center gap-4">
                   {/* Avatar */}
@@ -171,6 +185,9 @@ export const Team: React.FC = () => {
                     <p className="text-[10px] font-semibold text-[#AA820A] mt-0.5">{member.role}</p>
                     <a
                       href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-1 text-[9px] font-bold text-[#0B132B]/40 hover:text-[#D4AF37] mt-0.5 transition-colors"
                       aria-label={`${member.name} LinkedIn`}
                     >
@@ -197,6 +214,73 @@ export const Team: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Selected Member Modal */}
+      {selectedMember && (
+        <div className="fixed inset-0 bg-[#0B132B]/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-[32px] max-w-md w-full shadow-2xl overflow-hidden border border-[#0B132B]/10 animate-in fade-in zoom-in duration-200">
+            {/* Modal Header */}
+            <div className="p-8 pb-6 flex items-start justify-between relative">
+              <div className="flex items-center gap-4">
+                {selectedMember.image ? (
+                  <img
+                    src={selectedMember.image}
+                    alt={selectedMember.name}
+                    className="w-16 h-16 rounded-2xl object-cover shadow-sm"
+                  />
+                ) : (
+                  <div className="w-16 h-16 rounded-2xl bg-[#0B132B] text-[#D4AF37] flex items-center justify-center font-bold text-lg font-serif">
+                    {selectedMember.initials || selectedMember.name.split(' ').map((n: any) => n[0]).join('')}
+                  </div>
+                )}
+                <div>
+                  <h3 className="text-xl font-bold text-[#0B132B] font-serif">{selectedMember.name}</h3>
+                  <p className="text-xs font-semibold text-[#0B132B]/70 mt-1">{selectedMember.role || selectedMember.designation}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedMember(null)}
+                className="text-[#0B132B]/40 hover:text-[#0B132B] transition-colors p-1"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="px-8 pb-8 space-y-6">
+              <div>
+                <p className="text-[10px] font-bold text-[#0B132B]/50 uppercase tracking-widest mb-3">Full Expertise</p>
+                <div className="flex flex-wrap gap-2">
+                  {(selectedMember.skills || selectedMember.tags || []).map((skill: string) => (
+                    <span
+                      key={skill}
+                      className="text-xs font-semibold text-[#0B132B] bg-[#0B132B]/5 border border-[#0B132B]/10 px-3.5 py-1.5 rounded-xl"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {selectedMember.bio && (
+                <div>
+                  <p className="text-[10px] font-bold text-[#0B132B]/50 uppercase tracking-widest mb-2">Biography</p>
+                  <p className="text-xs text-[#4B5563] leading-relaxed">{selectedMember.bio}</p>
+                </div>
+              )}
+
+              {/* Action Button */}
+              <button
+                onClick={() => setSelectedMember(null)}
+                className="w-full py-3.5 bg-white border border-[#0B132B]/10 hover:bg-[#FAF9F6] text-[#0B132B] font-bold rounded-2xl text-xs transition-colors mt-2"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
