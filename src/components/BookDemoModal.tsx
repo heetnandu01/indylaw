@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { X, Calendar, Check, ArrowRight, ShieldCheck, Sparkles, Building, Phone, User, Mail, RefreshCw } from 'lucide-react'
+import { X, Calendar, Check, ArrowRight, ShieldCheck, Building, Phone, User, Mail, RefreshCw } from 'lucide-react'
 
 // Define validation schema with Zod
 const formSchema = z.object({
@@ -93,14 +93,26 @@ export const BookDemoModal: React.FC<BookDemoModalProps> = ({ isOpen, onClose })
             </p>
           </div>
 
-          <div className="space-y-3 pt-6 border-t border-[#FAF9F6]/10 text-[10px] text-[#FAF9F6]/90">
+          <div className="space-y-2.5 pt-6 border-t border-[#FAF9F6]/10 text-[10px] text-[#FAF9F6]/90">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
+              <ShieldCheck className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
               <span>SOC2 Type II Compliant</span>
             </div>
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#D4AF37]" />
+              <ShieldCheck className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
+              <span>India Data Residency</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
               <span>Grounded in Supreme Court</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
+              <span>Zero LLM Data Training</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
+              <span>AES-256 Encryption</span>
             </div>
           </div>
         </div>

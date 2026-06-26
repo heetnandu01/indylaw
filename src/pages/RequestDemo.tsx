@@ -2,13 +2,16 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { User, Mail, Phone, Building, CheckCircle, Sparkles, ShieldCheck, ArrowRight } from 'lucide-react'
+import { User, Mail, Phone, Building, CheckCircle, Sparkles, ShieldCheck, ArrowRight, Briefcase, Users, Scale } from 'lucide-react'
 
 const formSchema = z.object({
   fullName: z.string().min(3, { message: 'Full name must be at least 3 characters.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   phone: z.string().regex(/^[0-9\s+\-()]{10,15}$/, { message: 'Enter a valid phone number (10-15 digits).' }),
-  organization: z.string().min(2, { message: 'Organization name is required.' })
+  organization: z.string().min(2, { message: 'Organization name is required.' }),
+  role: z.string().optional(),
+  teamSize: z.string().optional(),
+  practiceArea: z.string().optional()
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -25,6 +28,9 @@ async function submitDemoRequest(data: FormData): Promise<void> {
       email: data.email,
       phone: data.phone,
       organization: data.organization,
+      role: data.role,
+      teamSize: data.teamSize,
+      practiceArea: data.practiceArea,
     }),
   })
 
@@ -86,18 +92,30 @@ export const RequestDemo: React.FC = () => {
                   Fill in your details below and our team will personally schedule a guided walkthrough of the platform tailored to your practice.
                 </p>
 
-                <div className="flex flex-wrap gap-4 pt-3 text-[10px] text-[#FAF9F6]/70">
+                <div className="flex flex-wrap gap-x-5 gap-y-2 pt-3 text-[10.5px] text-[#FAF9F6]/80">
                   <div className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37] flex-shrink-0" />
                     <span>SOC2 Compliant</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37] flex-shrink-0" />
                     <span>India Data Residency</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37] flex-shrink-0" />
                     <span>Grounded in Supreme Court</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37] flex-shrink-0" />
+                    <span>Zero LLM Data Training</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37] flex-shrink-0" />
+                    <span>AES-256 Encryption</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37] flex-shrink-0" />
+                    <span>99.9% Uptime SLA</span>
                   </div>
                 </div>
               </div>
@@ -185,6 +203,60 @@ export const RequestDemo: React.FC = () => {
                       />
                     </div>
                     {errors.organization && <p className="text-[9px] text-red-500 mt-1 font-semibold">{errors.organization.message}</p>}
+                  </div>
+
+                  {/* Role and Team Size Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    {/* Role */}
+                    <div>
+                      <label className="text-[10px] font-bold text-[#0B132B] uppercase tracking-wider block mb-1.5">
+                        Role / Designation
+                      </label>
+                      <div className="relative">
+                        <Briefcase className="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#4B5563]" />
+                        <input
+                          id="demo-role"
+                          type="text"
+                          {...register('role')}
+                          placeholder="e.g. Partner / GC"
+                          className="w-full bg-[#FAF9F6] text-xs border border-[#0B132B]/10 rounded-xl pl-9 pr-4 py-3 focus:outline-none focus:border-[#D4AF37] transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Team Size */}
+                    <div>
+                      <label className="text-[10px] font-bold text-[#0B132B] uppercase tracking-wider block mb-1.5">
+                        Team Size
+                      </label>
+                      <div className="relative">
+                        <Users className="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#4B5563]" />
+                        <input
+                          id="demo-teamSize"
+                          type="text"
+                          {...register('teamSize')}
+                          placeholder="e.g. 5, 25, 100+"
+                          className="w-full bg-[#FAF9F6] text-xs border border-[#0B132B]/10 rounded-xl pl-9 pr-4 py-3 focus:outline-none focus:border-[#D4AF37] transition-colors"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Practice Area */}
+                  <div>
+                    <label className="text-[10px] font-bold text-[#0B132B] uppercase tracking-wider block mb-1.5">
+                      Practice Area
+                    </label>
+                    <div className="relative">
+                      <Scale className="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#4B5563]" />
+                      <input
+                        id="demo-practiceArea"
+                        type="text"
+                        {...register('practiceArea')}
+                        placeholder="e.g. Litigation, Corporate, Arbitration"
+                        className="w-full bg-[#FAF9F6] text-xs border border-[#0B132B]/10 rounded-xl pl-9 pr-4 py-3 focus:outline-none focus:border-[#D4AF37] transition-colors"
+                      />
+                    </div>
                   </div>
 
                   {submitError && (

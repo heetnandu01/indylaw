@@ -48,6 +48,9 @@ interface DemoRequestBody {
   email: string
   phone: string
   organization: string
+  role?: string
+  teamSize?: string
+  practiceArea?: string
 }
 
 // ── Validation helpers ───────────────────────────────────────────────────────
@@ -61,7 +64,7 @@ function isValidPhone(phone: string): boolean {
 
 // ── POST /api/request-demo ───────────────────────────────────────────────────
 app.post('/api/request-demo', async (req: Request, res: Response) => {
-  const { name, email, phone, organization } = req.body as DemoRequestBody
+  const { name, email, phone, organization, role, teamSize, practiceArea } = req.body as DemoRequestBody
 
   // --- Field presence validation ---
   const errors: Record<string, string> = {}
@@ -119,6 +122,21 @@ app.post('/api/request-demo', async (req: Request, res: Response) => {
                 <td style="padding: 12px 8px; color: #6B7280; font-weight: 700; vertical-align: top;">Organization</td>
                 <td style="padding: 12px 8px; color: #111827; font-weight: 500;">${organization.trim()}</td>
               </tr>
+              ${role?.trim() ? `
+              <tr style="border-bottom: 1px solid #f0ede8;">
+                <td style="padding: 12px 8px; color: #6B7280; font-weight: 700; vertical-align: top;">Role / Designation</td>
+                <td style="padding: 12px 8px; color: #111827; font-weight: 500;">${role.trim()}</td>
+              </tr>` : ''}
+              ${teamSize?.trim() ? `
+              <tr style="border-bottom: 1px solid #f0ede8;">
+                <td style="padding: 12px 8px; color: #6B7280; font-weight: 700; vertical-align: top;">Team Size</td>
+                <td style="padding: 12px 8px; color: #111827; font-weight: 500;">${teamSize.trim()}</td>
+              </tr>` : ''}
+              ${practiceArea?.trim() ? `
+              <tr style="border-bottom: 1px solid #f0ede8;">
+                <td style="padding: 12px 8px; color: #6B7280; font-weight: 700; vertical-align: top;">Practice Area</td>
+                <td style="padding: 12px 8px; color: #111827; font-weight: 500;">${practiceArea.trim()}</td>
+              </tr>` : ''}
               <tr style="border-bottom: 1px solid #f0ede8;">
                 <td style="padding: 12px 8px; color: #6B7280; font-weight: 700; vertical-align: top;">Submitted At</td>
                 <td style="padding: 12px 8px; color: #111827;">${submittedAt} IST</td>
