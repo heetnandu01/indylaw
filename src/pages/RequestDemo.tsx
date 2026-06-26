@@ -13,74 +13,28 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-const ADMIN_EMAIL = 'admin@indylaw.in'
+// Send demo request to the secure Express backend.
+// The Vite proxy forwards /api → http://localhost:3000 during development.
+// The Resend API key lives only in server/.env — never in the browser bundle.
+async function submitDemoRequest(data: FormData): Promise<void> {
+  const res = await fetch('/api/request-demo', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: data.fullName,
+      email: data.email,
+      phone: data.phone,
+      organization: data.organization,
+    }),
+  })
 
-async function sendViaResend(data: FormData): Promise<void> {
-  // Access the API key using Vite's typed env object
-  const apiKey: string | undefined = typeof import.meta.env !== 'undefined'
-    ? (import.meta.env as Record<string, string | undefined>)['VITE_RESEND_API_KEY']
-    : undefined
-
-  if (!apiKey) {
-    // Graceful fallback: log and simulate success
-    console.log('[IndyLaw Demo Request — Resend not configured. Would have sent:]', {
-      admin: { to: ADMIN_EMAIL, subject: `New Demo Request from ${data.fullName}`, ...data },
-      user: { to: data.email, subject: 'Your IndyLaw Demo Request is Confirmed' }
-    })
-    return new Promise((res) => setTimeout(res, 1200))
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    throw new Error(
+      (body as { message?: string }).message ||
+        `Server error (${res.status}). Please try again.`
+    )
   }
-
-  // Send admin notification
-  await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify({
-      from: 'IndyLaw <noreply@indylaw.in>',
-      to: [ADMIN_EMAIL],
-      subject: `New Demo Request from ${data.fullName}`,
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #111827;">
-          <div style="background: #0B132B; color: white; padding: 24px 32px; border-radius: 12px 12px 0 0;">
-            <h2 style="margin:0; font-size: 20px; color: #D4AF37;">New Demo Request</h2>
-          </div>
-          <div style="padding: 32px; background: #FAF9F6; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
-            <table width="100%" cellpadding="6" style="font-size: 13px; border-collapse: collapse;">
-              <tr><td style="color:#6B7280; width: 140px; vertical-align:top; font-weight:bold;">Name</td><td style="color:#111827;">${data.fullName}</td></tr>
-              <tr><td style="color:#6B7280; font-weight:bold;">Email</td><td style="color:#111827;">${data.email}</td></tr>
-              <tr><td style="color:#6B7280; font-weight:bold;">Phone</td><td style="color:#111827;">${data.phone}</td></tr>
-              <tr><td style="color:#6B7280; font-weight:bold;">Organization</td><td style="color:#111827;">${data.organization}</td></tr>
-            </table>
-          </div>
-        </div>
-      `
-    })
-  })
-
-  // Send user confirmation
-  await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify({
-      from: 'IndyLaw <noreply@indylaw.in>',
-      to: [data.email],
-      subject: 'Your IndyLaw Demo Request is Confirmed',
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #111827;">
-          <div style="background: #0B132B; color: white; padding: 24px 32px; border-radius: 12px 12px 0 0;">
-            <h2 style="margin:0; font-size: 20px; color: #D4AF37;">Demo Request Confirmed</h2>
-          </div>
-          <div style="padding: 32px; background: #FAF9F6; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
-            <p>Hi <strong>${data.fullName}</strong>,</p>
-            <p style="color:#4B5563; font-size: 13px; line-height: 1.6;">
-              Thank you for requesting a demo of IndyLaw. Our team will review your details and reach out within <strong>1–2 business days</strong> to schedule a personalized walkthrough.
-            </p>
-            <p style="color:#4B5563; font-size: 13px;">We look forward to showing you India's AI-Native Legal Operating System.</p>
-            <p style="margin-top: 24px; color:#AA820A; font-weight: bold; font-size: 13px;">— The IndyLaw Team</p>
-          </div>
-        </div>
-      `
-    })
-  })
 }
 
 export const RequestDemo: React.FC = () => {
@@ -98,7 +52,7 @@ export const RequestDemo: React.FC = () => {
     setSubmitting(true)
     setSubmitError(null)
     try {
-      await sendViaResend(data)
+      await submitDemoRequest(data)
       setIsSuccess(true)
     } catch (err) {
       console.error('Demo form submission error:', err)

@@ -1,3 +1,7 @@
+# Secrets — never commit
+server/.env
+.env
+
 # Logs
 logs
 *.log
