@@ -29,60 +29,18 @@ export const Team: React.FC = () => {
 
   const teamMembers = [
     {
-      name: 'Rohan Verma',
-      role: 'Lead Backend Engineer',
-      skills: ['Node.js', 'PostgreSQL', 'Vector DBs', 'AWS'],
-      linkedin: '#',
-      initials: 'RV'
-    },
-    {
-      name: 'Sneha Kulkarni',
-      role: 'AI/ML Researcher',
-      skills: ['LLM Fine-tuning', 'Embedding Models', 'Legal NLP', 'Python'],
-      linkedin: '#',
-      initials: 'SK'
-    },
-    {
-      name: 'Karan Desai',
-      role: 'Frontend Engineer',
-      skills: ['React', 'TypeScript', 'Framer Motion', 'TailwindCSS'],
-      linkedin: '#',
-      initials: 'KD'
-    },
-    {
-      name: 'AN (Software Engineer)',
+      name: 'AN',
       role: 'Software Engineer',
       skills: ['JavaScript', 'React', 'Node.js'],
       linkedin: '#',
       image: ANImg
     },
     {
-      name: 'AA (Finance Analyst)',
+      name: 'AA',
       role: 'Finance Analyst',
       skills: ['Financial Modeling', 'Budgeting', 'Analytics'],
       linkedin: '#',
       image: AAImg
-    },
-    {
-      name: 'Ananya Iyer',
-      role: 'Legal Research Analyst',
-      skills: ['Indian Case Law', 'NCLT Research', 'RBI Compliance', 'Litigation Support'],
-      linkedin: '#',
-      initials: 'AI'
-    },
-    {
-      name: 'Vikram Sharma',
-      role: 'Product Designer',
-      skills: ['UI/UX Design', 'Figma', 'Design Systems', 'User Research'],
-      linkedin: '#',
-      initials: 'VS'
-    },
-    {
-      name: 'Deepa Rao',
-      role: 'Customer Success Lead',
-      skills: ['Legal Onboarding', 'Enterprise Sales', 'SaaS Support', 'Client Relations'],
-      linkedin: '#',
-      initials: 'DR'
     }
   ]
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Mail, ExternalLink, Building2, Send, CheckCircle, Sparkles } from 'lucide-react'
+import { Mail, ExternalLink, Send, CheckCircle, Sparkles } from 'lucide-react'
 
 export const Contact: React.FC = () => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -92,19 +92,6 @@ export const Contact: React.FC = () => {
                   >
                     linkedin.com/company/indylaw
                   </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-xl bg-[#0B132B] text-[#D4AF37] flex items-center justify-center flex-shrink-0">
-                  <Building2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold text-[#0B132B] uppercase tracking-wider">Registered Office</p>
-                  <p className="text-xs text-[#4B5563] leading-relaxed">
-                    IndyLaw Technologies Pvt. Ltd.<br />
-                    New Delhi, India — 110001
-                  </p>
                 </div>
               </div>
             </div>
