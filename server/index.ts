@@ -21,8 +21,8 @@ import { Resend } from 'resend'
 // ── Environment ────────────────────────────────────────────────────────────
 const PORT = Number(process.env.PORT) || 3000
 const RESEND_API_KEY = process.env.RESEND_API_KEY
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'heetnandu2@gmail.com'
-const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev'
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@indylaw.in'
+const FROM_EMAIL = process.env.FROM_EMAIL || 'admin@indylaw.in'
 
 if (!RESEND_API_KEY) {
   console.error('❌  RESEND_API_KEY is not set in server/.env — emails will not send.')

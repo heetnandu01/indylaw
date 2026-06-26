@@ -1,5 +1,9 @@
 import React from 'react'
 import { Sparkles, ExternalLink } from 'lucide-react'
+import AVImg from '../assets/AV.jpeg'
+import DMImg from '../assets/DM.jpeg'
+import ANImg from '../assets/AN.png'
+import AAImg from '../assets/AA.jpeg'
 
 export const Team: React.FC = () => {
   const founders = [
@@ -9,7 +13,7 @@ export const Team: React.FC = () => {
       bio: 'Former litigation associate at a Tier-1 Delhi law firm, Arjun witnessed firsthand how Indian lawyers spent hours on legal research that should take minutes. He combined his legal training with a passion for AI systems to build IndyLaw from the ground up.',
       tags: ['Litigation Strategy', 'Indian Jurisprudence', 'Product Vision', 'Legal AI'],
       linkedin: '#',
-      initials: 'AM',
+      image: AVImg,
       color: '#0B132B'
     },
     {
@@ -18,7 +22,7 @@ export const Team: React.FC = () => {
       bio: 'Priya brings deep ML research experience from IIT Bombay and enterprise SaaS engineering from her years at a leading legal tech company. She architected IndyLaw\'s RAG pipeline and the secure multi-tenant indexing infrastructure.',
       tags: ['RAG Systems', 'ML Infrastructure', 'LLM Grounding', 'Cloud Security'],
       linkedin: '#',
-      initials: 'PN',
+      image: DMImg,
       color: '#AA820A'
     }
   ]
@@ -44,6 +48,20 @@ export const Team: React.FC = () => {
       skills: ['React', 'TypeScript', 'Framer Motion', 'TailwindCSS'],
       linkedin: '#',
       initials: 'KD'
+    },
+    {
+      name: 'AN (Software Engineer)',
+      role: 'Software Engineer',
+      skills: ['JavaScript', 'React', 'Node.js'],
+      linkedin: '#',
+      image: ANImg
+    },
+    {
+      name: 'AA (Finance Analyst)',
+      role: 'Finance Analyst',
+      skills: ['Financial Modeling', 'Budgeting', 'Analytics'],
+      linkedin: '#',
+      image: AAImg
     },
     {
       name: 'Ananya Iyer',
@@ -108,12 +126,20 @@ export const Team: React.FC = () => {
               {/* Profile Top */}
               <div className="flex items-start gap-5">
                 {/* Avatar */}
-                <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-serif font-bold text-xl flex-shrink-0 shadow-md"
-                  style={{ backgroundColor: founder.color }}
-                >
-                  {founder.initials}
-                </div>
+                {founder.image ? (
+                  <img
+                    src={founder.image}
+                    alt={founder.name}
+                    className="w-16 h-16 rounded-2xl object-cover shadow-md"
+                  />
+                ) : (
+                  <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-serif font-bold text-xl flex-shrink-0 shadow-md"
+                    style={{ backgroundColor: founder.color }}
+                  >
+                    {founder.initials}
+                  </div>
+                )}
 
                 <div className="flex-1 min-w-0">
                   <h4 className="text-lg font-bold text-[#0B132B] font-serif">{founder.name}</h4>
@@ -171,9 +197,17 @@ export const Team: React.FC = () => {
               >
                 <div className="flex items-center gap-4">
                   {/* Avatar */}
-                  <div className="w-12 h-12 rounded-xl bg-[#0B132B] text-[#D4AF37] flex items-center justify-center font-bold text-sm font-serif flex-shrink-0">
-                    {member.initials}
-                  </div>
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-12 h-12 rounded-xl object-cover"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-xl bg-[#0B132B] text-[#D4AF37] flex items-center justify-center font-bold text-sm font-serif flex-shrink-0">
+                      {member.initials}
+                    </div>
+                  )}
                   <div>
                     <h4 className="text-sm font-bold text-[#0B132B]">{member.name}</h4>
                     <p className="text-[10px] font-semibold text-[#AA820A] mt-0.5">{member.role}</p>

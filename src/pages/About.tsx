@@ -1,5 +1,6 @@
-import React from 'react'
-import { Sparkles, Compass, Eye } from 'lucide-react'
+import React from 'react';
+import { Sparkles, Compass, Eye } from 'lucide-react';
+import PageHero from '../components/PageHero';
 
 export const About: React.FC = () => {
   const timeline = [
@@ -28,22 +29,11 @@ export const About: React.FC = () => {
   return (
     <div className="bg-[#FAF9F6] min-h-screen text-[#111827] font-sans selection:bg-[#D4AF37]/30 selection:text-[#0B132B]">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 px-6 overflow-hidden bg-[#0B132B] text-white border-b border-[#D4AF37]/20">
-        <div className="absolute inset-0 bg-grid-dots opacity-[0.03] pointer-events-none" />
-        <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-[#D4AF37]/5 blur-3xl pointer-events-none" />
-
-        <div className="max-w-4xl mx-auto text-center space-y-6 relative z-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-[#D4AF37] uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5" /> Our Story
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-serif font-bold text-white tracking-tight">
-            About IndyLaw
-          </h1>
-          <p className="text-xs sm:text-sm text-[#FAF9F6]/80 max-w-lg mx-auto">
-            We are building the intelligence layer for Indian legal practitioners, unifying research, drafting, and management.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="About IndyLaw"
+        subtitle="We are building the intelligence layer for Indian legal practitioners, unifying research, drafting, and management."
+        backgroundClass="bg-[#0B132B]"
+      />
 
       {/* Story & Why IndyLaw Exists */}
       <section className="py-20 px-6 max-w-4xl mx-auto space-y-16">

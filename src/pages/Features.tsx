@@ -2,6 +2,7 @@ import React from 'react'
 import { Check, Sparkles, ArrowRight, Layers, FileText, Database, ShieldCheck, Share2 } from 'lucide-react'
 
 // Import all high fidelity interactive mockup components
+import { PageHero } from '../components/PageHero'
 import { ResearchAI } from '../components/mockups/ResearchAI'
 import { CaseExplorer } from '../components/mockups/CaseExplorer'
 import { Highlights } from '../components/mockups/Highlights'
@@ -15,23 +16,11 @@ export const Features: React.FC = () => {
   return (
     <div className="bg-[#FAF9F6] min-h-screen text-[#111827] font-sans selection:bg-[#D4AF37]/30 selection:text-[#0B132B]">
       {/* Premium Hero Section */}
-      <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-[#0B132B] text-white border-b border-[#D4AF37]/20">
-        <div className="absolute inset-0 bg-grid-dots opacity-[0.03] pointer-events-none" />
-        <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-[#D4AF37]/5 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-white/5 blur-3xl pointer-events-none" />
-
-        <div className="max-w-4xl mx-auto text-center space-y-6 relative z-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-[#D4AF37] uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5" /> Capabilities Overview
-          </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-white tracking-tight">
-            Powerful Legal AI Features
-          </h1>
-          <p className="text-xs sm:text-sm md:text-base text-[#FAF9F6]/80 max-w-2xl mx-auto leading-relaxed">
-            Everything you need for legal research, drafting, knowledge management, and collaboration. Unified into a single secure platform.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Features"
+        subtitle="Powerful Legal AI Features for modern practice"
+        backgroundClass="bg-[#0B132B]"
+      />
 
       {/* Main Features Scroll Section */}
       <section className="py-24 px-6 space-y-36 max-w-7xl mx-auto">
