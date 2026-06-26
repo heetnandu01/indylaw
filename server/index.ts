@@ -3,7 +3,17 @@
  * Handles POST /api/request-demo and sends emails securely server-side.
  */
 
-import 'dotenv/config'
+import dotenv from 'dotenv'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+// Load from server/.env, then fallback to root .env
+dotenv.config({ path: path.join(__dirname, '.env') })
+dotenv.config()
+
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { Resend } from 'resend'
@@ -128,53 +138,58 @@ app.post('/api/request-demo', async (req: Request, res: Response) => {
     })
 
     // ── User confirmation email ───────────────────────────────────────────
-    await resend.emails.send({
-      from: `IndyLaw <${FROM_EMAIL}>`,
-      to: [email.trim()],
-      subject: 'Thanks for requesting a demo of IndyLaw AI',
-      html: `
-        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #111827; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
-          <!-- Header -->
-          <div style="background: #0B132B; padding: 28px 32px;">
-            <div style="font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #D4AF37; text-transform: uppercase; margin-bottom: 6px;">IndyLaw AI</div>
-            <h2 style="margin: 0; font-size: 22px; color: #ffffff; font-weight: 700;">Demo Request Confirmed ✓</h2>
-          </div>
-          <!-- Body -->
-          <div style="padding: 36px 32px; background: #FAF9F6; border: 1px solid #e5e7eb; border-top: none;">
-            <p style="margin: 0 0 16px; font-size: 15px; color: #111827;">Hi <strong>${name.trim()}</strong>,</p>
-            <p style="margin: 0 0 16px; font-size: 14px; color: #4B5563; line-height: 1.7;">
-              Thank you for requesting a demo of <strong style="color: #0B132B;">IndyLaw AI</strong> — India's AI-Native Legal Operating System. We have received your details and a member of our team will personally reach out within <strong>1–2 business days</strong> to schedule your private walkthrough.
-            </p>
-            <!-- What's next -->
-            <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 24px; margin: 24px 0;">
-              <p style="margin: 0 0 14px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #0B132B; text-transform: uppercase;">What Happens Next</p>
-              <div style="display: flex; align-items: flex-start; margin-bottom: 10px;">
-                <span style="display: inline-block; width: 22px; height: 22px; background: rgba(212,175,55,0.15); color: #AA820A; border-radius: 50%; font-size: 10px; font-weight: 900; text-align: center; line-height: 22px; flex-shrink: 0; margin-right: 12px;">1</span>
-                <span style="font-size: 13px; color: #4B5563; line-height: 1.5;">Check your inbox for this confirmation email.</span>
-              </div>
-              <div style="display: flex; align-items: flex-start; margin-bottom: 10px;">
-                <span style="display: inline-block; width: 22px; height: 22px; background: rgba(212,175,55,0.15); color: #AA820A; border-radius: 50%; font-size: 10px; font-weight: 900; text-align: center; line-height: 22px; flex-shrink: 0; margin-right: 12px;">2</span>
-                <span style="font-size: 13px; color: #4B5563; line-height: 1.5;">Our team reviews your organization profile.</span>
-              </div>
-              <div style="display: flex; align-items: flex-start;">
-                <span style="display: inline-block; width: 22px; height: 22px; background: rgba(212,175,55,0.15); color: #AA820A; border-radius: 50%; font-size: 10px; font-weight: 900; text-align: center; line-height: 22px; flex-shrink: 0; margin-right: 12px;">3</span>
-                <span style="font-size: 13px; color: #4B5563; line-height: 1.5;">We schedule a personalized live demo session.</span>
-              </div>
+    try {
+      await resend.emails.send({
+        from: `IndyLaw <${FROM_EMAIL}>`,
+        to: [email.trim()],
+        subject: 'Thanks for requesting a demo of IndyLaw AI',
+        html: `
+          <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #111827; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
+            <!-- Header -->
+            <div style="background: #0B132B; padding: 28px 32px;">
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #D4AF37; text-transform: uppercase; margin-bottom: 6px;">IndyLaw AI</div>
+              <h2 style="margin: 0; font-size: 22px; color: #ffffff; font-weight: 700;">Demo Request Confirmed ✓</h2>
             </div>
-            <p style="margin: 0; font-size: 13px; color: #4B5563; line-height: 1.7;">
-              If you have any immediate questions, feel free to reply to this email or reach us at <a href="mailto:hello@indylaw.in" style="color: #AA820A; font-weight: 600;">hello@indylaw.in</a>.
-            </p>
+            <!-- Body -->
+            <div style="padding: 36px 32px; background: #FAF9F6; border: 1px solid #e5e7eb; border-top: none;">
+              <p style="margin: 0 0 16px; font-size: 15px; color: #111827;">Hi <strong>${name.trim()}</strong>,</p>
+              <p style="margin: 0 0 16px; font-size: 14px; color: #4B5563; line-height: 1.7;">
+                Thank you for requesting a demo of <strong style="color: #0B132B;">IndyLaw AI</strong> — India's AI-Native Legal Operating System. We have received your details and a member of our team will personally reach out within <strong>1–2 business days</strong> to schedule your private walkthrough.
+              </p>
+              <!-- What's next -->
+              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 24px; margin: 24px 0;">
+                <p style="margin: 0 0 14px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #0B132B; text-transform: uppercase;">What Happens Next</p>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 10px;">
+                  <span style="display: inline-block; width: 22px; height: 22px; background: rgba(212,175,55,0.15); color: #AA820A; border-radius: 50%; font-size: 10px; font-weight: 900; text-align: center; line-height: 22px; flex-shrink: 0; margin-right: 12px;">1</span>
+                  <span style="font-size: 13px; color: #4B5563; line-height: 1.5;">Check your inbox for this confirmation email.</span>
+                </div>
+                <div style="display: flex; align-items: flex-start; margin-bottom: 10px;">
+                  <span style="display: inline-block; width: 22px; height: 22px; background: rgba(212,175,55,0.15); color: #AA820A; border-radius: 50%; font-size: 10px; font-weight: 900; text-align: center; line-height: 22px; flex-shrink: 0; margin-right: 12px;">2</span>
+                  <span style="font-size: 13px; color: #4B5563; line-height: 1.5;">Our team reviews your organization profile.</span>
+                </div>
+                <div style="display: flex; align-items: flex-start;">
+                  <span style="display: inline-block; width: 22px; height: 22px; background: rgba(212,175,55,0.15); color: #AA820A; border-radius: 50%; font-size: 10px; font-weight: 900; text-align: center; line-height: 22px; flex-shrink: 0; margin-right: 12px;">3</span>
+                  <span style="font-size: 13px; color: #4B5563; line-height: 1.5;">We schedule a personalized live demo session.</span>
+                </div>
+              </div>
+              <p style="margin: 0; font-size: 13px; color: #4B5563; line-height: 1.7;">
+                If you have any immediate questions, feel free to reply to this email or reach us at <a href="mailto:hello@indylaw.in" style="color: #AA820A; font-weight: 600;">hello@indylaw.in</a>.
+              </p>
+            </div>
+            <!-- Footer -->
+            <div style="padding: 20px 32px; background: #0B132B; text-align: center;">
+              <p style="margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #D4AF37;">IndyLaw AI</p>
+              <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.4);">India's AI-Native Legal Operating System</p>
+            </div>
           </div>
-          <!-- Footer -->
-          <div style="padding: 20px 32px; background: #0B132B; text-align: center;">
-            <p style="margin: 0 0 4px; font-size: 13px; font-weight: 700; color: #D4AF37;">IndyLaw AI</p>
-            <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.4);">India's AI-Native Legal Operating System</p>
-          </div>
-        </div>
-      `,
-    })
+        `,
+      })
+      console.log(`✅  Demo request from ${name.trim()} <${email.trim()}> — confirmation email sent.`)
+    } catch (confirmErr: unknown) {
+      console.warn(`⚠️  Failed to send confirmation email to user (sandbox limit?):`, confirmErr)
+    }
 
-    console.log(`✅  Demo request from ${name.trim()} <${email.trim()}> — emails sent.`)
+    console.log(`✅  Demo request from ${name.trim()} <${email.trim()}> processed successfully.`)
     res.status(200).json({ success: true, message: 'Demo request submitted successfully.' })
   } catch (err: unknown) {
     console.error('❌  Resend API error:', err)
