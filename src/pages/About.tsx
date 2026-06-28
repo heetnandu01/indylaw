@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Compass, Eye } from 'lucide-react';
+import { Compass, Eye } from 'lucide-react';
 import PageHero from '../components/PageHero';
 
 export const About: React.FC = () => {

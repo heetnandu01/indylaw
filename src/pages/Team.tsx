@@ -8,7 +8,16 @@ import AAImg from '../assets/AA.jpeg'
 export const Team: React.FC = () => {
   const [selectedMember, setSelectedMember] = useState<any>(null)
 
-  const founders = [
+  const founders: {
+    name: string
+    designation: string
+    bio: string
+    tags: string[]
+    linkedin: string
+    image?: string
+    color: string
+    initials?: string
+  }[] = [
     {
       name: 'Ankur Vazirani',
       designation: 'Founder & CEO',
@@ -29,7 +38,14 @@ export const Team: React.FC = () => {
     }
   ]
 
-  const teamMembers = [
+  const teamMembers: {
+    name: string
+    role: string
+    skills: string[]
+    linkedin: string
+    image?: string
+    initials?: string
+  }[] = [
     {
       name: 'Ankit Nandu',
       role: 'Software Engineer',

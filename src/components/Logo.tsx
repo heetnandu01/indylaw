@@ -11,7 +11,7 @@ interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = ({
-  variant = 'dark',
+  variant: _variant = 'dark',
   className = '',
   iconSize = 34
 }) => {
