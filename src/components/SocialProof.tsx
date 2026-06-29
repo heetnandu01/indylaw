@@ -15,12 +15,7 @@ export const SocialProof: React.FC = () => {
       firm: 'Apex Tech India',
       quote: 'Contract turnarounds dropped by 70%. We keep all our highlights and regulatory notices in a single workspace. Excellent for Indian corporate statutory MCA compliance.'
     },
-    {
-      name: 'Justice K. G. Menon (Retd.)',
-      role: 'Senior Advocate',
-      firm: 'Supreme Court of India',
-      quote: 'Judicial summary citations are highly accurate. Grounding responses in actual Supreme Court case law prevents the hallucinations seen in generic tools. A vital addition to Indian courts pleading.'
-    },
+
     {
       name: 'Sandip Adhikari',
       role: 'Bank Legal Head',

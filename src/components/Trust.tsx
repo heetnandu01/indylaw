@@ -1,5 +1,5 @@
 import React from 'react'
-import { Building2, Briefcase, Landmark, ShieldCheck, Search, ShieldAlert } from 'lucide-react'
+import { Building2, Briefcase, Landmark, ShieldCheck, Search } from 'lucide-react'
 
 export const Trust: React.FC = () => {
   const teams = [
@@ -32,12 +32,6 @@ export const Trust: React.FC = () => {
       icon: Search,
       desc: 'Dig deep into judicial historical doctrines, track legislative alterations, and compile detailed research briefs.',
       uses: ['Doctrine indexing', 'Article referencing', 'Judgment briefs']
-    },
-    {
-      title: 'Compliance Teams',
-      icon: ShieldAlert,
-      desc: 'Keep audits clean and monitor evolving statutory regulations from SEBI, MCA, and state regulatory tribunals.',
-      uses: ['MCA updates', 'Audit compliance logs', 'Compliance alerts']
     }
   ]
 
