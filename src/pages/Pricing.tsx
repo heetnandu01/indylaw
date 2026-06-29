@@ -52,7 +52,7 @@ export const Pricing: React.FC = () => {
     {
       name: 'Enterprise',
       desc: 'Robust customized security and RAG workspaces for large firms and banks.',
-      monthlyPrice: 11999,
+      monthlyPrice: 14999,
       yearlyPrice: 9599,
       features: [
         'Team Collaboration features',
