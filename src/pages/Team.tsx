@@ -4,6 +4,7 @@ import AVImg from '../assets/AV.jpeg'
 import DMImg from '../assets/DM.jpeg'
 import ANImg from '../assets/AN.png'
 import AAImg from '../assets/AA.jpeg'
+import HeetImg from '../assets/Heet.jpeg'
 
 export const Team: React.FC = () => {
   const [selectedMember, setSelectedMember] = useState<any>(null)
@@ -65,7 +66,7 @@ export const Team: React.FC = () => {
       role: 'DevOps Engineer',
       skills: ['Docker', 'Kubernetes', 'CI/CD', 'AWS'],
       linkedin: 'https://www.linkedin.com/in/heet-nandu-32ab27221/',
-      initials: 'HN'
+      image: HeetImg
     }
   ]
 
